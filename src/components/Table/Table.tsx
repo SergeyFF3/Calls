@@ -1,4 +1,6 @@
-export const Table = () => {
+import TableRow from "../TableRow";
+
+export const Table = ({ calls }: { calls: any }) => {
   return (
     <table className="app__table">
       <thead>
@@ -13,15 +15,9 @@ export const Table = () => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
+        {calls.map((call: any) => (
+          <TableRow key={call.id} call={call} />
+        ))}
       </tbody>
     </table>
   );
