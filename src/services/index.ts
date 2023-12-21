@@ -29,7 +29,7 @@ export async function getCallsList(
   }
 }
 
-export async function getCallRecord(id?: string, partner_id?: string) {
+export async function getCallRecord(id: string, partner_id: string) {
   try {
     const response = await fetch(
       `${process.env.REACT_APP_API_URL}/getRecord?record=${id}&partnership_id=${partner_id}`,

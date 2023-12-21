@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useCallsContext } from "../../context/CallsContext";
+import AvatarIcon from "../../icons/AvatarIcon";
 import CallTypeIcon from "../../icons/CallTypeIcon";
 import { getFormattedPhoneNumber } from "../../utils/getFormattedPhoneNumber";
 import secondsToMMSS from "../../utils/secondsToMMSS";
@@ -18,6 +19,14 @@ export const TableRow = ({ call }: { call: any }) => {
 
   const timeOfCall = dayjs(call.date).format("HH:mm");
   const formattedDuration = call.time > 0 && secondsToMMSS(call.time);
+
+  const employeeAvatar =
+    call.person_avatar === "" ? (
+      <AvatarIcon />
+    ) : (
+      <img className="img" src={call.person_avatar} alt="avatar" />
+    );
+
   const phoneNumber =
     call.in_out === 1
       ? getFormattedPhoneNumber(call.from_number)
@@ -86,9 +95,7 @@ export const TableRow = ({ call }: { call: any }) => {
     <tr>
       <td>{switchCallStatus(callStatus)}</td>
       <td>{timeOfCall}</td>
-      <td>
-        <img src={call.person_avatar} alt="avatar" />
-      </td>
+      <td>{employeeAvatar}</td>
       <td>
         <CallField
           callStatus={callStatus}
