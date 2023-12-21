@@ -1,16 +1,18 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useCallsContext } from "../../context/CallsContext";
+import CallTypeIcon from "../../icons/CallTypeIcon";
 import { getFormattedPhoneNumber } from "../../utils/getFormattedPhoneNumber";
 import secondsToMMSS from "../../utils/secondsToMMSS";
 import CallField from "../CallField";
+import "./TableRow.scss";
 
 const audio = new Audio();
 
 export const TableRow = ({ call }: { call: any }) => {
   const { callsList } = useCallsContext();
   const [record, setRecord] = useState<null | undefined | string>();
-  const [statusCall, setStatusCall] = useState<string>();
+  const [callStatus, setCallStatus] = useState<string>();
   const [currentCall, setCurrentTrack] = useState<any>(callsList[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 
@@ -42,31 +44,54 @@ export const TableRow = ({ call }: { call: any }) => {
     }
   };
 
+  const switchCallStatus = (status: string | undefined) => {
+    switch (status) {
+      case "Входящий":
+        return <CallTypeIcon color="#002CFB" />;
+      case "Пропущенный":
+        return <CallTypeIcon color="#EA1A4F" />;
+      case "Исходящий":
+        return (
+          <span className="call-status">
+            <CallTypeIcon color="#28A879" />
+          </span>
+        );
+      case "Не дозвонился":
+        return (
+          <span className="call-status">
+            <CallTypeIcon color="#EA1A4F" />
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
+
   useEffect(() => {
     if (call.status === "Дозвонился" && call.in_out === 1) {
-      setStatusCall("Входящий");
+      setCallStatus("Входящий");
     }
     if (call.status === "Дозвонился" && call.in_out === 0) {
-      setStatusCall("Исходящий");
+      setCallStatus("Исходящий");
     }
     if (call.status === "Не дозвонился" && call.in_out === 1) {
-      setStatusCall("Пропущенный");
+      setCallStatus("Пропущенный");
     }
     if (call.status === "Не дозвонился" && call.in_out === 0) {
-      setStatusCall("Недозвон");
+      setCallStatus("Не дозвонился");
     }
   }, []);
 
   return (
     <tr>
-      <td>{statusCall}</td>
+      <td>{switchCallStatus(callStatus)}</td>
       <td>{timeOfCall}</td>
       <td>
         <img src={call.person_avatar} alt="avatar" />
       </td>
       <td>
         <CallField
-          statusCall={statusCall}
+          callStatus={callStatus}
           name={call.person_name}
           phone={phoneNumber}
         />

@@ -1,9 +1,9 @@
 import "./CallField.scss";
 
 export const CallField = (props: any) => {
-  const { name, phone, statusCall } = props;
+  const { name, phone, callStatus } = props;
 
-  if (statusCall !== "Недозвон") return phone;
+  if (callStatus !== "Недозвон") return phone;
 
   return (
     <div className="call">
