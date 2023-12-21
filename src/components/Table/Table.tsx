@@ -1,8 +1,9 @@
 import TableRow from "../TableRow";
+import "./Table.scss";
 
 export const Table = ({ callsList }: { callsList: any }) => {
   return (
-    <table className="app__table">
+    <table className="table">
       <thead>
         <tr>
           <th>Тип</th>

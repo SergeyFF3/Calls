@@ -27,8 +27,10 @@ function App() {
 
   return (
     <main className="app">
-      <SelectTypeCall />
-      <Table callsList={callsList} />
+      <div className="app__content">
+        <SelectTypeCall />
+        <Table callsList={callsList} />
+      </div>
     </main>
   );
 }
