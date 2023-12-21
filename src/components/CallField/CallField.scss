@@ -1,0 +1,13 @@
+.call {
+  display: flex;
+  flex-direction: column;
+
+  &__name {
+    font-weight: 500;
+    margin-bottom: 6px;
+  }
+  &__phone {
+    font-weight: 400;
+    color: #5e7793;
+  }
+}

@@ -1,7 +1,9 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
 import { useCallsContext } from "../../context/CallsContext";
+import { getFormattedPhoneNumber } from "../../utils/getFormattedPhoneNumber";
 import secondsToMMSS from "../../utils/secondsToMMSS";
+import CallField from "../CallField";
 
 const audio = new Audio();
 
@@ -14,6 +16,10 @@ export const TableRow = ({ call }: { call: any }) => {
 
   const timeOfCall = dayjs(call.date).format("HH:mm");
   const formattedDuration = call.time > 0 && secondsToMMSS(call.time);
+  const phoneNumber =
+    call.in_out === 1
+      ? getFormattedPhoneNumber(call.from_number)
+      : getFormattedPhoneNumber(call.to_number);
 
   const handleToggleAudio = () => {
     if (currentCall.id !== call.id) {
@@ -58,7 +64,13 @@ export const TableRow = ({ call }: { call: any }) => {
       <td>
         <img src={call.person_avatar} alt="avatar" />
       </td>
-      <td>{call.from_number}</td>
+      <td>
+        <CallField
+          statusCall={statusCall}
+          name={call.person_name}
+          phone={phoneNumber}
+        />
+      </td>
       <td>-</td>
       <td>-</td>
       <td>{formattedDuration}</td>

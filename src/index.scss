@@ -15,7 +15,13 @@ select {
 @font-face {
   font-family: "SF Pro Display";
   src: local("SF Pro Display"), url("./fonts/SFProDisplay-Regular.ttf");
-  font-weight: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SF Pro Display";
+  src: local("SF Pro Display"), url("./fonts/SFProDisplay-Medium.ttf");
+  font-weight: 500;
 }
 
 body {
