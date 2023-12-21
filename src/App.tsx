@@ -1,22 +1,34 @@
-import { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import { useEffect } from "react";
 import "./App.scss";
+import SelectTypeCall from "./components/SelectTypeCall";
 import Table from "./components/Table";
-import { getList } from "./services";
+import { useCallsContext } from "./context/CallsContext";
+import { getCallsList } from "./services";
 
 function App() {
-  const [calls, setCalls] = useState([]);
+  const { callsList, setCallsList, typeCall } = useCallsContext();
+
+  const today = new Date();
+  const todayFormatted = dayjs(today).format("YYYY-MM-DD");
+
+  const threeDays = today.setDate(today.getDate() - 2);
+  const threeDaysFormatted = dayjs(threeDays).format("YYYY-MM-DD");
 
   useEffect(() => {
-    getList().then((res) => setCalls(res));
-  }, []);
+    getCallsList(threeDaysFormatted, todayFormatted, typeCall).then((res) =>
+      setCallsList(res)
+    );
+  }, [typeCall]);
 
-  if (!calls.length) {
+  if (!callsList.length) {
     return <h1>Список звонков пуст</h1>;
   }
 
   return (
     <main className="app">
-      <Table calls={calls} />
+      <SelectTypeCall />
+      <Table callsList={callsList} />
     </main>
   );
 }
