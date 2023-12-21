@@ -1,0 +1,31 @@
+.style-script {
+  color: #ea1a4f;
+  font-weight: 400;
+}
+
+.style-excellent,
+.style-good,
+.style-badly {
+  padding: 6px 8px;
+  border-radius: 4px;
+  width: max-content;
+  font-weight: 400;
+}
+
+.style-excellent {
+  border: 1px solid #28a879;
+  background: #dbf8ef;
+  color: #28a879;
+}
+
+.style-good {
+  border: 1px solid #adbfdf;
+  background: #d8e4fb;
+  color: #122945;
+}
+
+.style-badly {
+  border: 1px solid #ea1a4f;
+  background: #fee9ef;
+  color: #ea1a4f;
+}

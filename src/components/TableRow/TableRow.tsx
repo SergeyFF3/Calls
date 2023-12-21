@@ -6,6 +6,7 @@ import CallTypeIcon from "../../icons/CallTypeIcon";
 import { getFormattedPhoneNumber } from "../../utils/getFormattedPhoneNumber";
 import secondsToMMSS from "../../utils/secondsToMMSS";
 import CallField from "../CallField";
+import EvaluationOfCall from "../EvaluationOfCall";
 import "./TableRow.scss";
 
 const audio = new Audio();
@@ -76,6 +77,21 @@ export const TableRow = ({ call }: { call: any }) => {
     }
   };
 
+  const switchCallSource = (phone: string) => {
+    switch (phone.slice(-1)) {
+      case "2":
+        return "Yandex";
+      case "4":
+        return "Google";
+      case "7":
+        return "Rabota.ru";
+      case "2":
+        return "Yandex";
+      case "6":
+        return null;
+    }
+  };
+
   useEffect(() => {
     if (call.status === "Дозвонился" && call.in_out === 1) {
       setCallStatus("Входящий");
@@ -103,8 +119,10 @@ export const TableRow = ({ call }: { call: any }) => {
           phone={phoneNumber}
         />
       </td>
-      <td>-</td>
-      <td>-</td>
+      <td>{switchCallSource(phoneNumber)}</td>
+      <td>
+        <EvaluationOfCall phone={phoneNumber} />
+      </td>
       <td>{formattedDuration}</td>
     </tr>
   );
