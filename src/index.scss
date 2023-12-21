@@ -12,6 +12,13 @@ select {
   font: inherit;
 }
 
+@font-face {
+  font-family: "SF Pro Display";
+  src: local("SF Pro Display"), url("./fonts/SFProDisplay-Regular.ttf");
+  font-weight: normal;
+}
+
 body {
   background: #f1f4f9;
+  font-family: "SF Pro Display";
 }
