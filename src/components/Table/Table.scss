@@ -1,28 +1,29 @@
 .table {
   background: #fff;
   width: 100%;
-  padding: 20px 0 52px;
   border-radius: 8px;
   box-shadow: 0px 4px 5px 0px #e9edf3;
+  border-collapse: collapse;
 
   thead {
     tr {
-      border-top: none;
+      padding: 24px 40px;
     }
   }
 
   tbody {
+    display: block;
+    margin-bottom: 24px;
+
     tr {
-      height: 65px;
+      border-top: 1px solid #e9edf3;
     }
   }
 
   tr {
-    position: relative;
+    height: 65px;
     display: flex;
     align-items: center;
-    margin: 0 40px;
-    border-top: 1px solid #e9edf3;
 
     th {
       width: 100%;
@@ -32,7 +33,6 @@
       line-height: 148%;
       opacity: 0.87;
       text-align: left;
-      margin-bottom: 20px;
     }
 
     td {
@@ -53,10 +53,14 @@
 
       &:nth-child(3) {
         max-width: 129px;
+        display: flex;
+        align-items: center;
       }
 
       &:nth-child(4) {
         max-width: 325px;
+        display: flex;
+        align-items: center;
       }
 
       &:nth-child(5) {
