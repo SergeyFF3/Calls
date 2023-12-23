@@ -7,7 +7,7 @@ import { useCallsContext } from "./context/CallsContext";
 import { getCallsList } from "./services";
 
 function App() {
-  const { callsList, setCallsList, typeCall } = useCallsContext();
+  const { callsList, setCallsList, callType } = useCallsContext();
 
   const today = new Date();
   const todayFormatted = dayjs(today).format("YYYY-MM-DD");
@@ -16,10 +16,10 @@ function App() {
   const threeDaysFormatted = dayjs(threeDays).format("YYYY-MM-DD");
 
   useEffect(() => {
-    getCallsList(threeDaysFormatted, todayFormatted, typeCall).then((res) =>
+    getCallsList(threeDaysFormatted, todayFormatted, callType).then((res) =>
       setCallsList(res)
     );
-  }, [typeCall]);
+  }, [callType]);
 
   if (!callsList.length) {
     return <h1>Список звонков пуст</h1>;
