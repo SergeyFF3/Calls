@@ -108,24 +108,22 @@ export const TableRow = ({ call }: { call: any }) => {
   }, []);
 
   return (
-    <div className="row">
-      <tr>
-        <td>{switchCallStatus(callStatus)}</td>
-        <td>{timeOfCall}</td>
-        <td>{employeeAvatar}</td>
-        <td>
-          <CallField
-            callStatus={callStatus}
-            name={call.person_name}
-            phone={phoneNumber}
-          />
-        </td>
-        <td>{switchCallSource(phoneNumber)}</td>
-        <td>
-          <EvaluationOfCall phone={phoneNumber} />
-        </td>
-        <td>{formattedDuration}</td>
-      </tr>
-    </div>
+    <tr>
+      <td>{switchCallStatus(callStatus)}</td>
+      <td>{timeOfCall}</td>
+      <td>{employeeAvatar}</td>
+      <td>
+        <CallField
+          callStatus={callStatus}
+          name={call.person_name}
+          phone={phoneNumber}
+        />
+      </td>
+      <td>{switchCallSource(phoneNumber)}</td>
+      <td>
+        <EvaluationOfCall phone={phoneNumber} />
+      </td>
+      <td>{formattedDuration}</td>
+    </tr>
   );
 };

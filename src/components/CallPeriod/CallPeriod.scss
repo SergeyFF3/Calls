@@ -1,0 +1,106 @@
+.period {
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &__arrow-btn {
+    background: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  &__arrow-left {
+    background: url("../../images/arrow_left.svg") no-repeat;
+    width: 16px;
+    height: 24px;
+    transition: 0.2s ease;
+
+    &:hover {
+      background: url("../../images/arrow_left-blue.svg") no-repeat;
+    }
+  }
+
+  &__arrow-right {
+    background: url("../../images/arrow_right.svg") no-repeat;
+    width: 16px;
+    height: 24px;
+    transition: 0.2s ease;
+
+    &:hover {
+      background: url("../../images/arrow_right-blue.svg") no-repeat;
+    }
+  }
+
+  &__calendar-icon {
+    background: url("../../images/icon-calendar.svg") no-repeat;
+    width: 16px;
+    height: 18px;
+    transition: 0.2s ease;
+  }
+
+  &__btn {
+    margin: 0 12px;
+    background: transparent;
+    border: none;
+    outline: none;
+    display: flex;
+    padding: 4px 0;
+    align-items: center;
+    cursor: pointer;
+
+    &:hover {
+      i {
+        background: url("../../images/icon-calendar-blue.svg");
+      }
+    }
+  }
+
+  &__time {
+    color: #002cfb;
+    font-size: 14px;
+    margin-left: 8px;
+  }
+
+  &__list {
+    position: absolute;
+    padding: 4px 0;
+    z-index: -10;
+    top: 30px;
+    right: 0;
+    width: 135px;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+  }
+
+  &__item {
+    display: block;
+    padding: 7px 12px;
+    width: 100%;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+
+    &:hover {
+      background: #dee4ff;
+      cursor: pointer;
+    }
+  }
+}
+
+.active {
+  color: #015ef5;
+}
+
+.open {
+  opacity: 1;
+  z-index: 10;
+}
