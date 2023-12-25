@@ -14,7 +14,7 @@ function App() {
 
   useEffect(() => {
     getCallsList(timePeriod, today, callType).then((res) => setCallsList(res));
-  }, [callType]);
+  }, [callType, timePeriod]);
 
   if (!callsList.length) {
     return <h1>Список звонков пуст</h1>;

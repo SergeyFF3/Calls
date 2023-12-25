@@ -9,7 +9,7 @@ export async function getCallsList(
         process.env.REACT_APP_API_URL
       }/getList?date_start=${date_start}&date_end=${date_end}${
         type && `&in_out=${type}`
-      }&limit=10`,
+      }&limit=100`,
       {
         method: "POST",
         headers: {

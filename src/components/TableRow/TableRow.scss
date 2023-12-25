@@ -9,3 +9,20 @@
   height: 32px;
   border-radius: 50%;
 }
+
+.date {
+  margin-top: 17px;
+  border-top: none !important;
+
+  &:hover {
+    cursor: default !important;
+    background: #fff !important;
+  }
+}
+
+.qnty {
+  vertical-align: top;
+  color: #899cb1;
+  font-size: 12px;
+  margin-left: 4px;
+}

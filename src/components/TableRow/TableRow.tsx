@@ -8,10 +8,19 @@ import secondsToMMSS from "../../utils/secondsToMMSS";
 import CallField from "../CallField";
 import EvaluationOfCall from "../EvaluationOfCall";
 import "./TableRow.scss";
+import ru from "dayjs/locale/ru";
 
 const audio = new Audio();
 
-export const TableRow = ({ call }: { call: any }) => {
+export const TableRow = ({
+  call,
+  index,
+  callsByDate,
+}: {
+  call: any;
+  index: number;
+  callsByDate: any;
+}) => {
   const { callsList } = useCallsContext();
   const [record, setRecord] = useState<null | undefined | string>();
   const [callStatus, setCallStatus] = useState<string>();
@@ -20,6 +29,10 @@ export const TableRow = ({ call }: { call: any }) => {
 
   const timeOfCall = dayjs(call.date).format("HH:mm");
   const formattedDuration = call.time > 0 && secondsToMMSS(call.time);
+  const indexValue = callsByDate.findIndex((el: any) => el.indexDay === index);
+  const dateOfMonth = dayjs(callsByDate[indexValue]?.date)
+    .locale(ru)
+    .format("DD MMMM");
 
   const employeeAvatar =
     call.person_avatar === "" ? (
@@ -107,23 +120,51 @@ export const TableRow = ({ call }: { call: any }) => {
     }
   }, []);
 
+  const getCallsDate = () => {
+    if (indexValue === 0) {
+      return null;
+    }
+    if (indexValue === 1) {
+      return (
+        <tr className="date">
+          <p>
+            Вчера<span className="qnty">{callsByDate[1].count}</span>
+          </p>
+        </tr>
+      );
+    }
+    if (callsByDate[indexValue]?.indexDay === index) {
+      return (
+        <tr className="date">
+          <p>
+            {dateOfMonth}
+            <span className="qnty">{callsByDate[1].count}</span>
+          </p>
+        </tr>
+      );
+    }
+  };
+
   return (
-    <tr>
-      <td>{switchCallStatus(callStatus)}</td>
-      <td>{timeOfCall}</td>
-      <td>{employeeAvatar}</td>
-      <td>
-        <CallField
-          callStatus={callStatus}
-          name={call.person_name}
-          phone={phoneNumber}
-        />
-      </td>
-      <td>{switchCallSource(phoneNumber)}</td>
-      <td>
-        <EvaluationOfCall phone={phoneNumber} />
-      </td>
-      <td>{formattedDuration}</td>
-    </tr>
+    <>
+      {getCallsDate()}
+      <tr>
+        <td>{switchCallStatus(callStatus)}</td>
+        <td>{timeOfCall}</td>
+        <td>{employeeAvatar}</td>
+        <td>
+          <CallField
+            callStatus={callStatus}
+            name={call.person_name}
+            phone={phoneNumber}
+          />
+        </td>
+        <td>{switchCallSource(phoneNumber)}</td>
+        <td>
+          <EvaluationOfCall phone={phoneNumber} />
+        </td>
+        <td>{formattedDuration}</td>
+      </tr>
+    </>
   );
 };
