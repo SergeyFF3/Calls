@@ -1,7 +1,9 @@
 export async function getCallsList(
   date_start: string,
   date_end: string,
-  type?: string
+  type?: string,
+  sort_by: string = "date",
+  order: string = "DESC"
 ) {
   try {
     const response = await fetch(
@@ -9,7 +11,7 @@ export async function getCallsList(
         process.env.REACT_APP_API_URL
       }/getList?date_start=${date_start}&date_end=${date_end}${
         type && `&in_out=${type}`
-      }&limit=100`,
+      }&sort_by=${sort_by}&order=${order}&limit=200`,
       {
         method: "POST",
         headers: {

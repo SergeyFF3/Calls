@@ -12,16 +12,8 @@ import ru from "dayjs/locale/ru";
 
 const audio = new Audio();
 
-export const TableRow = ({
-  call,
-  index,
-  callsByDate,
-}: {
-  call: any;
-  index: number;
-  callsByDate: any;
-}) => {
-  const { callsList } = useCallsContext();
+export const TableRow = ({ call, index }: { call: any; index: number }) => {
+  const { callsList, callsByDate, order } = useCallsContext();
   const [record, setRecord] = useState<null | undefined | string>();
   const [callStatus, setCallStatus] = useState<string>();
   const [currentCall, setCurrentTrack] = useState<any>(callsList[0]);
@@ -121,25 +113,43 @@ export const TableRow = ({
   }, []);
 
   const getCallsDate = () => {
-    if (indexValue === 0) {
+    if (indexValue === 0 && order === "DESC") {
       return null;
     }
-    if (indexValue === 1) {
+
+    if (indexValue === 0 && order === "ASC") {
       return (
-        <tr className="date">
-          <p>
-            Вчера<span className="qnty">{callsByDate[1].count}</span>
-          </p>
+        <tr className="row-date-asc">
+          <td className="body-data-col">
+            <p>
+              {dateOfMonth}
+              <span className="qnty">{callsByDate[indexValue].count / 2}</span>
+            </p>
+          </td>
+        </tr>
+      );
+    }
+
+    if (indexValue === 1 && order === "DESC") {
+      return (
+        <tr className="row-date">
+          <td className="body-data-col">
+            <p>
+              Вчера<span className="qnty">{callsByDate[1].count / 2}</span>
+            </p>
+          </td>
         </tr>
       );
     }
     if (callsByDate[indexValue]?.indexDay === index) {
       return (
-        <tr className="date">
-          <p>
-            {dateOfMonth}
-            <span className="qnty">{callsByDate[1].count}</span>
-          </p>
+        <tr className="row-date">
+          <td className="body-data-col">
+            <p>
+              {dateOfMonth}
+              <span className="qnty">{callsByDate[indexValue].count / 2}</span>
+            </p>
+          </td>
         </tr>
       );
     }
@@ -148,22 +158,22 @@ export const TableRow = ({
   return (
     <>
       {getCallsDate()}
-      <tr>
-        <td>{switchCallStatus(callStatus)}</td>
-        <td>{timeOfCall}</td>
-        <td>{employeeAvatar}</td>
-        <td>
+      <tr className="body-row">
+        <td className="body-col">{switchCallStatus(callStatus)}</td>
+        <td className="body-col">{timeOfCall}</td>
+        <td className="body-col">{employeeAvatar}</td>
+        <td className="body-col">
           <CallField
             callStatus={callStatus}
             name={call.person_name}
             phone={phoneNumber}
           />
         </td>
-        <td>{switchCallSource(phoneNumber)}</td>
-        <td>
+        <td className="body-col">{switchCallSource(phoneNumber)}</td>
+        <td className="body-col">
           <EvaluationOfCall phone={phoneNumber} />
         </td>
-        <td>{formattedDuration}</td>
+        <td className="body-col">{formattedDuration}</td>
       </tr>
     </>
   );

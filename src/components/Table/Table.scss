@@ -5,87 +5,79 @@
   box-shadow: 0px 4px 5px 0px #e9edf3;
   border-collapse: collapse;
 
-  thead {
-    tr {
-      padding: 24px 40px;
-    }
+  &__header {
+    cursor: default;
   }
 
-  tbody {
-    display: block;
-    margin-bottom: 24px;
-
-    tr {
-      padding: 0 40px;
-
-      &:hover {
-        background: #f1f4f9;
-        cursor: pointer;
-      }
-    }
-  }
-
-  tr {
+  &__header-row {
     height: 65px;
     display: flex;
     align-items: center;
+    padding: 24px 40px;
+  }
 
-    th {
-      width: 100%;
-      color: #5e7793;
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 148%;
-      opacity: 0.87;
-      text-align: left;
+  &__header-col {
+    &:first-child {
+      max-width: 54px;
     }
 
-    td {
-      height: 100%;
-      width: 100%;
-      font-size: 15px;
-      font-weight: 500;
-      border-top: 1px solid #e9edf3;
+    &:nth-child(2) {
+      max-width: 88px;
+    }
+
+    &:nth-child(3) {
+      max-width: 129px;
       display: flex;
       align-items: center;
     }
 
-    td,
-    th {
-      &:first-child {
-        max-width: 54px;
-      }
-
-      &:nth-child(2) {
-        max-width: 88px;
-      }
-
-      &:nth-child(3) {
-        max-width: 129px;
-        display: flex;
-        align-items: center;
-      }
-
-      &:nth-child(4) {
-        max-width: 325px;
-        display: flex;
-        align-items: center;
-      }
-
-      &:nth-child(5) {
-        max-width: 214px;
-        color: #5e7793;
-        font-weight: 400;
-      }
-
-      &:nth-child(6) {
-        max-width: 461px;
-      }
-
-      &:last-child {
-        max-width: 88px;
-        text-align: right;
-      }
+    &:nth-child(4) {
+      max-width: 325px;
+      display: flex;
+      align-items: center;
     }
+
+    &:nth-child(5) {
+      max-width: 214px;
+      color: #5e7793;
+      font-weight: 400;
+    }
+
+    &:nth-child(6) {
+      max-width: 461px;
+    }
+
+    &:last-child {
+      max-width: 88px;
+      text-align: right;
+    }
+  }
+
+  &__header-col {
+    width: 100%;
+    color: #5e7793;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 148%;
+    opacity: 0.87;
+    text-align: left;
+  }
+
+  &__link {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding-right: 15px;
+  }
+
+  &__arrow {
+    position: absolute;
+    top: 50%;
+    right: 7px;
+  }
+
+  &__body {
+    display: block;
+    margin-bottom: 24px;
   }
 }
