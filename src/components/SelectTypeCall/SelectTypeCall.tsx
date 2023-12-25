@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useCallsContext } from "../../context/CallsContext";
+import Arrow from "../Arrow";
 import "./SelectTypeCall.scss";
 
 const options = ["", "1", "0"];
@@ -24,7 +25,6 @@ export const SelectTypeCall = () => {
 
   const currentType = switchCallType(callType);
   const stylesCurrentType = `select__p ${callType !== "" && "active"}`;
-  const arrowIconStyles = isOpen ? "select__icon-rotate" : "select__icon";
   const listStyles = `select__list ${isOpen && "open"}`;
 
   const toggleHandler = () => {
@@ -56,7 +56,7 @@ export const SelectTypeCall = () => {
       <div className="select__header">
         <button className="select__btn" onClick={toggleHandler}>
           <p className={stylesCurrentType}>{currentType}</p>
-          <i className={arrowIconStyles}></i>
+          <Arrow isOpen={isOpen} />
         </button>
         {callType !== "" && (
           <button className="select__btn-clear" onClick={clearFilters}>
