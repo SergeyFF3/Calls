@@ -7,7 +7,15 @@ import "./SelectTypeCall.scss";
 const options = ["Все типы", "Входящие", "Исходящие"];
 
 export const SelectTypeCall = () => {
-  const { setCallType } = useCallsContext();
+  const {
+    setCallType,
+    setSortCalls,
+    setOrder,
+    setTimePeriod,
+    setIsOpenDate,
+    setIsOpenDuration,
+    threeDaysPeriod,
+  } = useCallsContext();
   const [isOpen, setIsOpen] = useState(false);
   const [currentFilter, setCurrentFilter] = useState(options[0]);
   const listRef = useRef<HTMLDivElement>(null);
@@ -40,6 +48,11 @@ export const SelectTypeCall = () => {
   const clearFilters = () => {
     setCallType("");
     setCurrentFilter("Все типы");
+    setTimePeriod(threeDaysPeriod);
+    setSortCalls("date");
+    setOrder("DESC");
+    setIsOpenDate(false);
+    setIsOpenDuration(false);
   };
 
   const selectOption = (option: string) => {

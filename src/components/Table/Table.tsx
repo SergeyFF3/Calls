@@ -5,12 +5,18 @@ import TableRow from "../TableRow";
 import "./Table.scss";
 
 export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
-  const { setOrder, setSortCalls } = useCallsContext();
-  const [isOpenDate, setIsOpenDate] = useState(false);
-  const [isOpenDuration, setIsOpenDuration] = useState(false);
+  const {
+    setOrder,
+    setSortCalls,
+    isOpenDate,
+    setIsOpenDate,
+    isOpenDuration,
+    setIsOpenDuration,
+  } = useCallsContext();
 
   const sortByDate = () => {
     setIsOpenDate(!isOpenDate);
+    setIsOpenDuration(false);
 
     if (isOpenDate) {
       setSortCalls("date");
@@ -24,6 +30,7 @@ export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
 
   const sortByDuration = () => {
     setIsOpenDuration(!isOpenDuration);
+    setIsOpenDate(false);
 
     if (isOpenDuration) {
       setSortCalls("duration");

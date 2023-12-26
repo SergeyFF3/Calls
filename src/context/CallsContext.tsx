@@ -29,6 +29,7 @@ export interface ICallProps {
 }
 
 interface CallsContextType {
+  threeDaysPeriod: string;
   callsByDate: ICallSByDate[];
   callsList: ICallProps[];
   setCallsList: Dispatch<SetStateAction<ICallProps[]>>;
@@ -40,9 +41,14 @@ interface CallsContextType {
   setSortCalls: Dispatch<SetStateAction<string>>;
   order: string;
   setOrder: Dispatch<SetStateAction<string>>;
+  isOpenDate: boolean;
+  setIsOpenDate: Dispatch<SetStateAction<boolean>>;
+  isOpenDuration: boolean;
+  setIsOpenDuration: Dispatch<SetStateAction<boolean>>;
 }
 
 const CallsContextDefaultValues: CallsContextType = {
+  threeDaysPeriod: "",
   callsByDate: [],
   callsList: [],
   setCallsList: () => {},
@@ -54,6 +60,10 @@ const CallsContextDefaultValues: CallsContextType = {
   setSortCalls: () => {},
   order: "",
   setOrder: () => {},
+  isOpenDate: false,
+  setIsOpenDate: () => {},
+  isOpenDuration: false,
+  setIsOpenDuration: () => {},
 };
 
 const CallsContext = createContext<CallsContextType>(CallsContextDefaultValues);
@@ -62,18 +72,21 @@ type Props = {
   children: ReactNode;
 };
 
-const threeDays = dayjs().subtract(2, "days").format("YYYY-MM-DD");
+const threeDaysPeriod = dayjs().subtract(2, "days").format("YYYY-MM-DD");
 
 export function CallsProvider({ children }: Props) {
   const [callsList, setCallsList] = useState<ICallProps[]>([]);
   const [callType, setCallType] = useState<string>("");
-  const [timePeriod, setTimePeriod] = useState<string>(threeDays);
+  const [timePeriod, setTimePeriod] = useState<string>(threeDaysPeriod);
   const [sortCalls, setSortCalls] = useState<string>("date");
   const [order, setOrder] = useState<string>("DESC");
+  const [isOpenDate, setIsOpenDate] = useState<boolean>(false);
+  const [isOpenDuration, setIsOpenDuration] = useState<boolean>(false);
 
   let callsByDate: ICallSByDate[] = [];
 
   const value = {
+    threeDaysPeriod,
     callsByDate,
     callsList,
     setCallsList,
@@ -85,6 +98,10 @@ export function CallsProvider({ children }: Props) {
     setSortCalls,
     order,
     setOrder,
+    isOpenDate,
+    setIsOpenDate,
+    isOpenDuration,
+    setIsOpenDuration,
   };
 
   return (

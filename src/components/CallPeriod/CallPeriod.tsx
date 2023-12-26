@@ -55,7 +55,7 @@ export const CallPeriod = () => {
     if (currentPeriodIndex < periods.length - 1) {
       currentPeriodIndex++;
       setCurrentPeriod(periods[currentPeriodIndex]);
-      switchPeriod(currentPeriod);
+      switchPeriod(periods[currentPeriodIndex]);
     }
   };
 
@@ -63,7 +63,7 @@ export const CallPeriod = () => {
     if (currentPeriodIndex > 0) {
       currentPeriodIndex--;
       setCurrentPeriod(periods[currentPeriodIndex]);
-      switchPeriod(currentPeriod);
+      switchPeriod(periods[currentPeriodIndex]);
     }
   };
 
