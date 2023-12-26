@@ -1,31 +1,37 @@
 import { useEffect, useRef, useState } from "react";
 import { useCallsContext } from "../../context/CallsContext";
 import Arrow from "../Arrow";
+import Popap from "../Popap";
 import "./SelectTypeCall.scss";
 
-const options = ["", "1", "0"];
+const options = ["Все типы", "Входящие", "Исходящие"];
 
 export const SelectTypeCall = () => {
-  const { setCallType, callType } = useCallsContext();
+  const { setCallType } = useCallsContext();
   const [isOpen, setIsOpen] = useState(false);
+  const [currentFilter, setCurrentFilter] = useState(options[0]);
   const listRef = useRef<HTMLDivElement>(null);
 
   const switchCallType = (type: string) => {
     switch (type) {
-      case "":
-        return "Все типы";
-      case "1":
-        return "Входящие";
-      case "0":
-        return "Исходящие";
+      case "Все типы":
+        setCallType("");
+        break;
+      case "Входящие":
+        setCallType("1");
+        break;
+      case "Исходящие":
+        setCallType("0");
+        break;
       default:
-        return "Все типы";
+        setCallType("");
+        break;
     }
   };
 
-  const currentType = switchCallType(callType);
-  const stylesCurrentType = `select__p ${callType !== "" && "active"}`;
-  const listStyles = `select__list ${isOpen && "open"}`;
+  const stylesCurrentType = `select__p ${
+    currentFilter !== "Все типы" && "active"
+  }`;
 
   const toggleHandler = () => {
     setIsOpen(!isOpen);
@@ -33,10 +39,12 @@ export const SelectTypeCall = () => {
 
   const clearFilters = () => {
     setCallType("");
+    setCurrentFilter("Все типы");
   };
 
   const selectOption = (option: string) => {
-    setCallType(option);
+    switchCallType(option);
+    setCurrentFilter(option);
     setIsOpen(false);
   };
 
@@ -55,28 +63,23 @@ export const SelectTypeCall = () => {
     <div className="select" ref={listRef}>
       <div className="select__header">
         <button className="select__btn" onClick={toggleHandler}>
-          <p className={stylesCurrentType}>{currentType}</p>
+          <p className={stylesCurrentType}>{currentFilter}</p>
           <Arrow isOpen={isOpen} />
         </button>
-        {callType !== "" && (
+        {currentFilter !== "Все типы" && (
           <button className="select__btn-clear" onClick={clearFilters}>
             <p className="select__p-clear">Сбросить фильтры</p>
             <i className="select__cross-icon"></i>
           </button>
         )}
       </div>
-      <ul className={listStyles}>
-        {options.map((option, index) => (
-          <li key={index}>
-            <a
-              className={`select__item ${option === callType && "active"}`}
-              onClick={() => selectOption(option)}
-            >
-              {switchCallType(option)}
-            </a>
-          </li>
-        ))}
-      </ul>
+      <Popap
+        itemsList={options}
+        currentItem={currentFilter}
+        selectOption={selectOption}
+        isOpen={isOpen}
+        position="left"
+      />
     </div>
   );
 };

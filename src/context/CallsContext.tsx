@@ -17,7 +17,7 @@ export interface ICallSByDate {
 export interface ICallProps {
   id: number;
   date: string;
-  data_notime: string;
+  date_notime: string;
   time: number;
   from_number: string;
   to_number: string;

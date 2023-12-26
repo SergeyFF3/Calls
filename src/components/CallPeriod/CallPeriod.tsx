@@ -1,6 +1,7 @@
 import dayjs from "dayjs";
 import { useEffect, useRef, useState } from "react";
 import { useCallsContext } from "../../context/CallsContext";
+import Popap from "../Popap";
 import "./CallPeriod.scss";
 
 const periods: string[] = ["3 дня", "Неделя", "Месяц", "Год"];
@@ -10,8 +11,6 @@ export const CallPeriod = () => {
   const [currentPeriod, setCurrentPeriod] = useState(periods[0]);
   const [isOpen, setIsOpen] = useState(false);
   const periodRef = useRef<HTMLDivElement>(null);
-
-  const listStyles = `period__list ${isOpen && "open"}`;
   let currentPeriodIndex = periods.indexOf(currentPeriod);
 
   const switchPeriod = (period: string) => {
@@ -88,22 +87,13 @@ export const CallPeriod = () => {
         <i className="period__calendar-icon"></i>
         <div className="period__time">{currentPeriod}</div>
       </button>
-      <div>
-        <ul className={listStyles}>
-          {periods.map((period, index) => (
-            <li key={index}>
-              <a
-                className={`select__item ${
-                  period === currentPeriod && "active"
-                }`}
-                onClick={() => selectOption(period)}
-              >
-                {period}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+      <Popap
+        itemsList={periods}
+        currentItem={currentPeriod}
+        selectOption={selectOption}
+        isOpen={isOpen}
+        position="right"
+      />
       <button className="period__arrow-btn" onClick={nextPeriodHandler}>
         <i className="period__arrow-right"></i>
       </button>

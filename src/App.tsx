@@ -20,7 +20,7 @@ function App() {
     callsByDate,
   } = useCallsContext();
 
-  callsList.forEach((call: any, index: number) => {
+  callsList.forEach((call, index) => {
     let existingDateIndex = callsByDate.findIndex(
       (item) => item.date === call.date_notime
     );
@@ -43,7 +43,7 @@ function App() {
     );
   }, [callType, timePeriod, sortCalls, order]);
 
-  if (!callsList?.length) {
+  if (!callsList.length) {
     return <h1>Список звонков пуст</h1>;
   }
 
