@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import { useEffect, useState } from "react";
-import { useCallsContext } from "../../context/CallsContext";
+import { ICallProps, useCallsContext } from "../../context/CallsContext";
 import AvatarIcon from "../../icons/AvatarIcon";
 import CallTypeIcon from "../../icons/CallTypeIcon";
 import { getFormattedPhoneNumber } from "../../utils/getFormattedPhoneNumber";
@@ -12,16 +12,22 @@ import ru from "dayjs/locale/ru";
 
 const audio = new Audio();
 
-export const TableRow = ({ call, index }: { call: any; index: number }) => {
+export const TableRow = ({
+  call,
+  index,
+}: {
+  call: ICallProps;
+  index: number;
+}) => {
   const { callsList, callsByDate, order } = useCallsContext();
-  const [record, setRecord] = useState<null | undefined | string>();
-  const [callStatus, setCallStatus] = useState<string>();
-  const [currentCall, setCurrentTrack] = useState<any>(callsList[0]);
+  const [record, setRecord] = useState<null | string>();
+  const [callStatus, setCallStatus] = useState<string>("");
+  const [currentCall, setCurrentTrack] = useState<ICallProps>(callsList[0]);
   const [isPlaying, setIsPlaying] = useState(false);
 
   const timeOfCall = dayjs(call.date).format("HH:mm");
   const formattedDuration = call.time > 0 && secondsToMMSS(call.time);
-  const indexValue = callsByDate.findIndex((el: any) => el.indexDay === index);
+  const indexValue = callsByDate.findIndex((el) => el.indexDay === index);
   const dateOfMonth = dayjs(callsByDate[indexValue]?.date)
     .locale(ru)
     .format("DD MMMM");
@@ -59,7 +65,7 @@ export const TableRow = ({ call, index }: { call: any; index: number }) => {
     }
   };
 
-  const switchCallStatus = (status: string | undefined) => {
+  const switchCallStatus = (status: string) => {
     switch (status) {
       case "Входящий":
         return <CallTypeIcon color="#002CFB" />;

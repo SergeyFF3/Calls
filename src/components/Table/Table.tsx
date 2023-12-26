@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useCallsContext } from "../../context/CallsContext";
+import { ICallProps, useCallsContext } from "../../context/CallsContext";
 import Arrow from "../Arrow";
 import TableRow from "../TableRow";
 import "./Table.scss";
 
-export const Table = ({ callsList }: { callsList: any }) => {
+export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
   const { setOrder, setSortCalls } = useCallsContext();
   const [isOpenDate, setIsOpenDate] = useState(false);
   const [isOpenDuration, setIsOpenDuration] = useState(false);
@@ -63,7 +63,7 @@ export const Table = ({ callsList }: { callsList: any }) => {
         </tr>
       </thead>
       <tbody className="table__body">
-        {callsList.map((call: any, index: number) => (
+        {callsList.map((call, index) => (
           <TableRow key={call.id} call={call} index={index} />
         ))}
       </tbody>

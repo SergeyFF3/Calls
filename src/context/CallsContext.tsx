@@ -1,24 +1,45 @@
 import dayjs from "dayjs";
-import { ReactNode, createContext, useContext, useState } from "react";
+import {
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+  SetStateAction,
+  Dispatch,
+} from "react";
 
-interface ICallSByDate {
+export interface ICallSByDate {
   indexDay: number;
   date: string;
   count: number;
 }
 
+export interface ICallProps {
+  id: number;
+  date: string;
+  data_notime: string;
+  time: number;
+  from_number: string;
+  to_number: string;
+  status: string;
+  record: string;
+  in_out: number;
+  person_name: string;
+  person_avatar: string;
+}
+
 interface CallsContextType {
   callsByDate: ICallSByDate[];
-  callsList: any[];
-  setCallsList: (state: any) => void;
+  callsList: ICallProps[];
+  setCallsList: Dispatch<SetStateAction<ICallProps[]>>;
   callType: string;
-  setCallType: (state: string) => void;
+  setCallType: Dispatch<SetStateAction<string>>;
   timePeriod: string;
-  setTimePeriod: (state: string) => void;
+  setTimePeriod: Dispatch<SetStateAction<string>>;
   sortCalls: string;
-  setSortCalls: (state: string) => void;
+  setSortCalls: Dispatch<SetStateAction<string>>;
   order: string;
-  setOrder: (state: string) => void;
+  setOrder: Dispatch<SetStateAction<string>>;
 }
 
 const CallsContextDefaultValues: CallsContextType = {
@@ -44,7 +65,7 @@ type Props = {
 const threeDays = dayjs().subtract(2, "days").format("YYYY-MM-DD");
 
 export function CallsProvider({ children }: Props) {
-  const [callsList, setCallsList] = useState([]);
+  const [callsList, setCallsList] = useState<ICallProps[]>([]);
   const [callType, setCallType] = useState<string>("");
   const [timePeriod, setTimePeriod] = useState<string>(threeDays);
   const [sortCalls, setSortCalls] = useState<string>("date");

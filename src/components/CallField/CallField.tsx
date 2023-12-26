@@ -1,9 +1,16 @@
+import { FC } from "react";
 import "./CallField.scss";
 
-export const CallField = (props: any) => {
+interface ICallField {
+  name: string;
+  phone: string;
+  callStatus: string;
+}
+
+export const CallField: FC<ICallField> = (props) => {
   const { name, phone, callStatus } = props;
 
-  if (callStatus !== "Недозвон") return phone;
+  if (callStatus !== "Недозвон") return <p>{phone}</p>;
 
   return (
     <div className="call">

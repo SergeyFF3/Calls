@@ -41,8 +41,8 @@ export const SelectTypeCall = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!listRef.current?.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!listRef.current?.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };

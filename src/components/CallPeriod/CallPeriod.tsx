@@ -69,8 +69,8 @@ export const CallPeriod = () => {
   };
 
   useEffect(() => {
-    const handleClickOutside = (e: any) => {
-      if (!periodRef.current?.contains(e.target)) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (!periodRef.current?.contains(e.target as Node)) {
         setIsOpen(false);
       }
     };
