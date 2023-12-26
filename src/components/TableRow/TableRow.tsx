@@ -9,6 +9,7 @@ import CallField from "../CallField";
 import EvaluationOfCall from "../EvaluationOfCall";
 import "./TableRow.scss";
 import ru from "dayjs/locale/ru";
+import RowLabel from "../RowLabel";
 
 const audio = new Audio();
 
@@ -125,38 +126,27 @@ export const TableRow = ({
 
     if (indexValue === 0 && order === "ASC") {
       return (
-        <tr className="row-date-asc">
-          <td className="body-data-col">
-            <p>
-              {dateOfMonth}
-              <span className="qnty">{callsByDate[indexValue].count / 2}</span>
-            </p>
-          </td>
-        </tr>
+        <RowLabel order="asc">
+          {dateOfMonth}
+          <span className="qnty">{callsByDate[indexValue].count / 2}</span>
+        </RowLabel>
       );
     }
 
     if (indexValue === 1 && order === "DESC") {
       return (
-        <tr className="row-date">
-          <td className="body-data-col">
-            <p>
-              Вчера<span className="qnty">{callsByDate[1].count / 2}</span>
-            </p>
-          </td>
-        </tr>
+        <RowLabel>
+          Вчера <span className="qnty">{callsByDate[1].count / 2}</span>
+        </RowLabel>
       );
     }
+
     if (callsByDate[indexValue]?.indexDay === index) {
       return (
-        <tr className="row-date">
-          <td className="body-data-col">
-            <p>
-              {dateOfMonth}
-              <span className="qnty">{callsByDate[indexValue].count / 2}</span>
-            </p>
-          </td>
-        </tr>
+        <RowLabel>
+          {dateOfMonth}
+          <span className="qnty">{callsByDate[indexValue].count / 2}</span>
+        </RowLabel>
       );
     }
   };
