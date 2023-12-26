@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { ICallProps, useCallsContext } from "../../context/CallsContext";
 import Arrow from "../Arrow";
+import Loader from "../Loader";
 import TableRow from "../TableRow";
 import "./Table.scss";
 
@@ -12,9 +12,12 @@ export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
     setIsOpenDate,
     isOpenDuration,
     setIsOpenDuration,
+    isLoading,
+    setIsLoading,
   } = useCallsContext();
 
   const sortByDate = () => {
+    setIsLoading(true);
     setIsOpenDate(!isOpenDate);
     setIsOpenDuration(false);
 
@@ -29,6 +32,7 @@ export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
   };
 
   const sortByDuration = () => {
+    setIsLoading(true);
     setIsOpenDuration(!isOpenDuration);
     setIsOpenDate(false);
 
@@ -42,6 +46,14 @@ export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <div className="table-loader">
+        <Loader />
+      </div>
+    );
+  }
+
   return (
     <table className="table">
       <thead className="table__header">
@@ -50,9 +62,9 @@ export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
           <th className="table__header-col">
             <a className="table__link" onClick={sortByDate}>
               <p>Время</p>
-              <i className="table__arrow">
+              <span className="table__arrow">
                 <Arrow isOpen={isOpenDate} />
-              </i>
+              </span>
             </a>
           </th>
           <th className="table__header-col">Сотрудник</th>
@@ -62,9 +74,9 @@ export const Table = ({ callsList }: { callsList: ICallProps[] }) => {
           <th className="table__header-col">
             <a className="table__link" onClick={sortByDuration}>
               <p>Длительность</p>
-              <i className="table__arrow">
+              <span className="table__arrow">
                 <Arrow isOpen={isOpenDuration} />
-              </i>
+              </span>
             </a>
           </th>
         </tr>

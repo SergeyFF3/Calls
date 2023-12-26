@@ -15,9 +15,11 @@ export const SelectTypeCall = () => {
     setIsOpenDate,
     setIsOpenDuration,
     threeDaysPeriod,
+    isLoading,
+    setIsLoading,
   } = useCallsContext();
   const [isOpen, setIsOpen] = useState(false);
-  const [currentFilter, setCurrentFilter] = useState(options[0]);
+  const [currentType, setCurrentType] = useState(options[0]);
   const listRef = useRef<HTMLDivElement>(null);
 
   const switchCallType = (type: string) => {
@@ -38,7 +40,7 @@ export const SelectTypeCall = () => {
   };
 
   const stylesCurrentType = `select__p ${
-    currentFilter !== "Все типы" && "active"
+    currentType !== "Все типы" && "active"
   }`;
 
   const toggleHandler = () => {
@@ -46,8 +48,9 @@ export const SelectTypeCall = () => {
   };
 
   const clearFilters = () => {
+    setIsLoading(true);
     setCallType("");
-    setCurrentFilter("Все типы");
+    setCurrentType("Все типы");
     setTimePeriod(threeDaysPeriod);
     setSortCalls("date");
     setOrder("DESC");
@@ -56,8 +59,9 @@ export const SelectTypeCall = () => {
   };
 
   const selectOption = (option: string) => {
+    setIsLoading(true);
     switchCallType(option);
-    setCurrentFilter(option);
+    setCurrentType(option);
     setIsOpen(false);
   };
 
@@ -75,12 +79,22 @@ export const SelectTypeCall = () => {
   return (
     <div className="select" ref={listRef}>
       <div className="select__header">
-        <button className="select__btn" onClick={toggleHandler}>
-          <p className={stylesCurrentType}>{currentFilter}</p>
-          <Arrow isOpen={isOpen} />
+        <button
+          className="select__btn"
+          onClick={toggleHandler}
+          disabled={isLoading}
+        >
+          <p className={stylesCurrentType}>{currentType}</p>
+          <span className="select__arrow">
+            <Arrow isOpen={isOpen} />
+          </span>
         </button>
-        {currentFilter !== "Все типы" && (
-          <button className="select__btn-clear" onClick={clearFilters}>
+        {currentType !== "Все типы" && (
+          <button
+            className="select__btn-clear"
+            onClick={clearFilters}
+            disabled={isLoading}
+          >
             <p className="select__p-clear">Сбросить фильтры</p>
             <i className="select__cross-icon"></i>
           </button>
@@ -88,7 +102,7 @@ export const SelectTypeCall = () => {
       </div>
       <Popap
         itemsList={options}
-        currentItem={currentFilter}
+        currentItem={currentType}
         selectOption={selectOption}
         isOpen={isOpen}
         position="left"

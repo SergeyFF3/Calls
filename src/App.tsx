@@ -1,7 +1,8 @@
 import dayjs from "dayjs";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./App.scss";
 import CallPeriod from "./components/CallPeriod";
+import Loader from "./components/Loader";
 import SelectTypeCall from "./components/SelectTypeCall";
 import Table from "./components/Table";
 import { useCallsContext } from "./context/CallsContext";
@@ -18,9 +19,11 @@ function App() {
     sortCalls,
     order,
     callsByDate,
+    setIsLoading,
   } = useCallsContext();
+  const [isFirstLoad, setIsFirstLoad] = useState(true);
 
-  callsList.forEach((call, index) => {
+  callsList?.forEach((call, index) => {
     let existingDateIndex = callsByDate.findIndex(
       (item) => item.date === call.date_notime
     );
@@ -37,14 +40,38 @@ function App() {
     }
   });
 
+  const fetchCallsList = async () => {
+    const list = await getCallsList(
+      timePeriod,
+      today,
+      callType,
+      sortCalls,
+      order
+    )
+      .then((res) => res)
+      .finally(() => setIsLoading(false));
+
+    setCallsList(list);
+    setIsFirstLoad(false);
+  };
+
   useEffect(() => {
-    getCallsList(timePeriod, today, callType, sortCalls, order).then((res) =>
-      setCallsList(res)
-    );
+    fetchCallsList();
   }, [callType, timePeriod, sortCalls, order]);
 
-  if (!callsList.length) {
-    return <h1>Список звонков пуст</h1>;
+  if (isFirstLoad)
+    return (
+      <div className="wrapper">
+        <Loader />
+      </div>
+    );
+
+  if (!callsList?.length) {
+    return (
+      <div className="wrapper">
+        <h1>Список звонков пуст</h1>
+      </div>
+    );
   }
 
   return (

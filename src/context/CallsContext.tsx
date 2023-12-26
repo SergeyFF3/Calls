@@ -45,6 +45,8 @@ interface CallsContextType {
   setIsOpenDate: Dispatch<SetStateAction<boolean>>;
   isOpenDuration: boolean;
   setIsOpenDuration: Dispatch<SetStateAction<boolean>>;
+  isLoading: boolean;
+  setIsLoading: Dispatch<SetStateAction<boolean>>;
 }
 
 const CallsContextDefaultValues: CallsContextType = {
@@ -64,6 +66,8 @@ const CallsContextDefaultValues: CallsContextType = {
   setIsOpenDate: () => {},
   isOpenDuration: false,
   setIsOpenDuration: () => {},
+  isLoading: true,
+  setIsLoading: () => {},
 };
 
 const CallsContext = createContext<CallsContextType>(CallsContextDefaultValues);
@@ -82,6 +86,7 @@ export function CallsProvider({ children }: Props) {
   const [order, setOrder] = useState<string>("DESC");
   const [isOpenDate, setIsOpenDate] = useState<boolean>(false);
   const [isOpenDuration, setIsOpenDuration] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   let callsByDate: ICallSByDate[] = [];
 
@@ -102,6 +107,8 @@ export function CallsProvider({ children }: Props) {
     setIsOpenDate,
     isOpenDuration,
     setIsOpenDuration,
+    isLoading,
+    setIsLoading,
   };
 
   return (

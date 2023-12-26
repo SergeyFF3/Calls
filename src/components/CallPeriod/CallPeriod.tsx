@@ -7,7 +7,7 @@ import "./CallPeriod.scss";
 const periods: string[] = ["3 дня", "Неделя", "Месяц", "Год"];
 
 export const CallPeriod = () => {
-  const { setTimePeriod } = useCallsContext();
+  const { setTimePeriod, isLoading, setIsLoading } = useCallsContext();
   const [currentPeriod, setCurrentPeriod] = useState(periods[0]);
   const [isOpen, setIsOpen] = useState(false);
   const periodRef = useRef<HTMLDivElement>(null);
@@ -46,12 +46,14 @@ export const CallPeriod = () => {
   };
 
   const selectOption = (option: string) => {
+    setIsLoading(true);
     switchPeriod(option);
     setCurrentPeriod(option);
     setIsOpen(false);
   };
 
   const nextPeriodHandler = () => {
+    setIsLoading(true);
     if (currentPeriodIndex < periods.length - 1) {
       currentPeriodIndex++;
       setCurrentPeriod(periods[currentPeriodIndex]);
@@ -60,6 +62,7 @@ export const CallPeriod = () => {
   };
 
   const backPeriodHandler = () => {
+    setIsLoading(true);
     if (currentPeriodIndex > 0) {
       currentPeriodIndex--;
       setCurrentPeriod(periods[currentPeriodIndex]);
@@ -80,10 +83,18 @@ export const CallPeriod = () => {
 
   return (
     <div ref={periodRef} className="period">
-      <button className="period__arrow-btn" onClick={backPeriodHandler}>
+      <button
+        className="period__arrow-btn"
+        onClick={backPeriodHandler}
+        disabled={isLoading}
+      >
         <i className="period__arrow-left"></i>
       </button>
-      <button onClick={toggleHandler} className="period__btn">
+      <button
+        className="period__btn"
+        onClick={toggleHandler}
+        disabled={isLoading}
+      >
         <i className="period__calendar-icon"></i>
         <div className="period__time">{currentPeriod}</div>
       </button>
@@ -94,7 +105,11 @@ export const CallPeriod = () => {
         isOpen={isOpen}
         position="right"
       />
-      <button className="period__arrow-btn" onClick={nextPeriodHandler}>
+      <button
+        className="period__arrow-btn"
+        onClick={nextPeriodHandler}
+        disabled={isLoading}
+      >
         <i className="period__arrow-right"></i>
       </button>
     </div>

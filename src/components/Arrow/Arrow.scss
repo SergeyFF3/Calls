@@ -1,6 +1,6 @@
-.icon {
+.icon,
+.icon-rotate {
   position: relative;
-  width: 18px;
 
   &::before,
   &::after {
@@ -9,7 +9,7 @@
     inset: auto auto;
     width: 6px;
     height: 1px;
-    background: #015ef5;
+    background: #adbfdf;
     transform: rotate(45deg);
     transition: 0.2s ease;
   }
@@ -21,25 +21,14 @@
   }
 }
 
-.icon-rotate {
-  position: relative;
-  width: 18px;
-
-  &::before,
-  &::after {
-    content: "";
-    position: absolute;
-    inset: auto auto;
-    width: 6px;
-    height: 1px;
-    background: #adbfdf;
+.icon {
+  &::before {
+    background: #015ef5;
     transform: rotate(-45deg);
-    transition: 0.2s ease;
   }
 
   &::after {
-    content: "";
-    inset: auto 4px;
+    background: #015ef5;
     transform: rotate(45deg);
   }
 }

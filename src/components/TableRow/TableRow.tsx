@@ -20,7 +20,7 @@ export const TableRow = ({
   call: ICallProps;
   index: number;
 }) => {
-  const { callsList, callsByDate, order } = useCallsContext();
+  const { callsList, callsByDate, order, sortCalls } = useCallsContext();
   const [record, setRecord] = useState<null | string>();
   const [callStatus, setCallStatus] = useState<string>("");
   const [currentCall, setCurrentTrack] = useState<ICallProps>(callsList[0]);
@@ -121,7 +121,7 @@ export const TableRow = ({
 
   const getCallsDate = () => {
     if (indexValue === 0 && order === "DESC") {
-      return null;
+      return <tr>{null}</tr>;
     }
 
     if (indexValue === 0 && order === "ASC") {
@@ -131,6 +131,14 @@ export const TableRow = ({
           <span className="qnty">{callsByDate[indexValue].count / 2}</span>
         </RowLabel>
       );
+    }
+
+    if (
+      callsByDate[indexValue]?.indexDay === index &&
+      sortCalls === "duration" &&
+      !call.time
+    ) {
+      return <tr>{null}</tr>;
     }
 
     if (indexValue === 1 && order === "DESC") {
@@ -151,9 +159,12 @@ export const TableRow = ({
     }
   };
 
-  return (
-    <>
-      {getCallsDate()}
+  const getContent = () => {
+    if (sortCalls === "duration" && !call.time) {
+      return <tr>{null}</tr>;
+    }
+
+    return (
       <tr className="body-row">
         <td className="body-col">{switchCallStatus(callStatus)}</td>
         <td className="body-col">{timeOfCall}</td>
@@ -171,6 +182,13 @@ export const TableRow = ({
         </td>
         <td className="body-col">{formattedDuration}</td>
       </tr>
+    );
+  };
+
+  return (
+    <>
+      {getCallsDate()}
+      {getContent()}
     </>
   );
 };

@@ -10,6 +10,7 @@
 
   &__btn,
   &__btn-clear {
+    position: relative;
     background: transparent;
     border: none;
     outline: none;
@@ -40,12 +41,15 @@
     }
   }
 
+  &__arrow {
+    width: 18px;
+  }
+
   &__p,
   &__p-clear {
     color: #5e7793;
     font-size: 14px;
     line-height: 100%;
-    margin-right: 4px;
   }
 
   &__p-clear {
