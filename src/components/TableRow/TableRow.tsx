@@ -133,14 +133,6 @@ export const TableRow = ({
       );
     }
 
-    if (
-      callsByDate[indexValue]?.indexDay === index &&
-      sortCalls === "duration" &&
-      !call.time
-    ) {
-      return <tr>{null}</tr>;
-    }
-
     if (indexValue === 1 && order === "DESC") {
       return (
         <RowLabel>
@@ -159,12 +151,9 @@ export const TableRow = ({
     }
   };
 
-  const getContent = () => {
-    if (sortCalls === "duration" && !call.time) {
-      return <tr>{null}</tr>;
-    }
-
-    return (
+  return (
+    <>
+      {getCallsDate()}
       <tr className="body-row">
         <td className="body-col">{switchCallStatus(callStatus)}</td>
         <td className="body-col">{timeOfCall}</td>
@@ -182,13 +171,6 @@ export const TableRow = ({
         </td>
         <td className="body-col">{formattedDuration}</td>
       </tr>
-    );
-  };
-
-  return (
-    <>
-      {getCallsDate()}
-      {getContent()}
     </>
   );
 };

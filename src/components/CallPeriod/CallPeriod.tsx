@@ -86,7 +86,7 @@ export const CallPeriod = () => {
       <button
         className="period__arrow-btn"
         onClick={backPeriodHandler}
-        disabled={isLoading}
+        disabled={isLoading || currentPeriodIndex === 0}
       >
         <i className="period__arrow-left"></i>
       </button>
@@ -108,7 +108,7 @@ export const CallPeriod = () => {
       <button
         className="period__arrow-btn"
         onClick={nextPeriodHandler}
-        disabled={isLoading}
+        disabled={isLoading || currentPeriodIndex === periods.length - 1}
       >
         <i className="period__arrow-right"></i>
       </button>
