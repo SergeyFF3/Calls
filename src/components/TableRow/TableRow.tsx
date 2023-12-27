@@ -128,7 +128,7 @@ export const TableRow = ({
       return (
         <RowLabel order="asc">
           {dateOfMonth}
-          <span className="qnty">{callsByDate[indexValue].count / 2}</span>
+          <span className="qnty">{callsByDate[indexValue].count}</span>
         </RowLabel>
       );
     }
@@ -136,7 +136,7 @@ export const TableRow = ({
     if (indexValue === 1 && order === "DESC") {
       return (
         <RowLabel>
-          Вчера <span className="qnty">{callsByDate[1].count / 2}</span>
+          Вчера <span className="qnty">{callsByDate[1].count}</span>
         </RowLabel>
       );
     }
@@ -145,7 +145,7 @@ export const TableRow = ({
       return (
         <RowLabel>
           {dateOfMonth}
-          <span className="qnty">{callsByDate[indexValue].count / 2}</span>
+          <span className="qnty">{callsByDate[indexValue].count}</span>
         </RowLabel>
       );
     }
