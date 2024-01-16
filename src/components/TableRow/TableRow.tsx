@@ -97,34 +97,23 @@ export const TableRow = ({
         return "Google";
       case "7":
         return "Rabota.ru";
-      case "2":
-        return "Yandex";
+      case "1":
+        return "ГРУЗЧИКОВ-СЕРВИС СПБ";
       case "6":
         return null;
     }
   };
 
-  useEffect(() => {
-    if (call.status === "Дозвонился" && call.in_out === 1) {
-      setCallStatus("Входящий");
-    }
-    if (call.status === "Дозвонился" && call.in_out === 0) {
-      setCallStatus("Исходящий");
-    }
-    if (call.status === "Не дозвонился" && call.in_out === 1) {
-      setCallStatus("Пропущенный");
-    }
-    if (call.status === "Не дозвонился" && call.in_out === 0) {
-      setCallStatus("Не дозвонился");
-    }
-  }, []);
-
   const getCallsDate = () => {
-    if (indexValue === 0 && order === "DESC") {
+    if (indexValue === 0 && sortCalls === "date" && order === "DESC") {
       return <tr>{null}</tr>;
     }
 
-    if (indexValue === 0 && order === "ASC") {
+    if (
+      (indexValue === 0 && sortCalls === "date" && order === "ASC") ||
+      (indexValue === 0 && sortCalls === "duration" && order === "DESC") ||
+      (indexValue === 0 && sortCalls === "duration" && order === "ASC")
+    ) {
       return (
         <RowLabel order="asc">
           {dateOfMonth}
@@ -133,7 +122,7 @@ export const TableRow = ({
       );
     }
 
-    if (indexValue === 1 && order === "DESC") {
+    if (indexValue === 1 && sortCalls === "date" && order === "DESC") {
       return (
         <RowLabel>
           Вчера <span className="qnty">{callsByDate[1].count}</span>
@@ -150,6 +139,21 @@ export const TableRow = ({
       );
     }
   };
+
+  useEffect(() => {
+    if (call.status === "Дозвонился" && call.in_out === 1) {
+      setCallStatus("Входящий");
+    }
+    if (call.status === "Дозвонился" && call.in_out === 0) {
+      setCallStatus("Исходящий");
+    }
+    if (call.status === "Не дозвонился" && call.in_out === 1) {
+      setCallStatus("Пропущенный");
+    }
+    if (call.status === "Не дозвонился" && call.in_out === 0) {
+      setCallStatus("Не дозвонился");
+    }
+  }, [call.status, call.in_out]);
 
   return (
     <>

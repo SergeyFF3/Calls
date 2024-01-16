@@ -46,10 +46,12 @@ export const CallPeriod = () => {
   };
 
   const selectOption = (option: string) => {
-    setIsLoading(true);
-    switchPeriod(option);
-    setCurrentPeriod(option);
-    setIsOpen(false);
+    if (option !== currentPeriod) {
+      setIsLoading(true);
+      switchPeriod(option);
+      setCurrentPeriod(option);
+      setIsOpen(false);
+    }
   };
 
   const nextPeriodHandler = () => {

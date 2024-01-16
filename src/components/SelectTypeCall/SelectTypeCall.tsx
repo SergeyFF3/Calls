@@ -59,10 +59,12 @@ export const SelectTypeCall = () => {
   };
 
   const selectOption = (option: string) => {
-    setIsLoading(true);
-    switchCallType(option);
-    setCurrentType(option);
-    setIsOpen(false);
+    if (option !== currentType) {
+      setIsLoading(true);
+      switchCallType(option);
+      setCurrentType(option);
+      setIsOpen(false);
+    }
   };
 
   useEffect(() => {
